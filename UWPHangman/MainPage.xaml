@@ -1,0 +1,42 @@
+﻿<Page
+    x:Class="UWPHangman.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UWPHangman"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    xmlns:viewmodels="using:UWPHangman.ViewModels"
+    xmlns:convertors="using:UWPHangman.ViewModels.Converters"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.DataContext>
+        <viewmodels:MainViewModel />
+    </Page.DataContext>
+    <Page.Resources>
+        <convertors:IntPictureConverter x:Key="IntPictureConverter"/>
+    </Page.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.ColumnSpan="2" HorizontalAlignment="Center" Text="Hangman UWP" FontSize="30"/>
+        <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" Text="{Binding Word, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="34" CharacterSpacing="150"/>
+        <Image Margin="10" Stretch="Uniform" Grid.Row="1" Grid.RowSpan="2">
+            <Image.Source>
+                <SvgImageSource UriSource="{Binding Index, Converter={StaticResource IntPictureConverter}, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+            </Image.Source>
+        </Image>
+        <StackPanel Grid.Column="1" Grid.Row="2">
+            <TextBlock Text="{Binding WrongLetters, Mode=TwoWay}"/>
+            <TextBox Text="{Binding GuessWord, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <Button Content="Guess" Margin="10" Command="{Binding Guess}" HorizontalAlignment="Center"/>
+            <Button Content="New word" Margin="10" Command="{Binding Reset}" HorizontalAlignment="Center"/>
+        </StackPanel>
+    </Grid>
+</Page>
