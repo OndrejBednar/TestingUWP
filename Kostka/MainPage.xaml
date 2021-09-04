@@ -1,0 +1,27 @@
+﻿<Page
+    x:Class="Kostka.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Kostka"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    xmlns:viewmodels="using:Kostka.ViewModels"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Height="810" Width="828">
+    <Page.DataContext>
+        <viewmodels:MainViewModel />
+    </Page.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock HorizontalAlignment="Center" Text="{Binding Max}" TextWrapping="Wrap" VerticalAlignment="Center"/>
+        <TextBlock HorizontalAlignment="Center" Text="{Binding Number}" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Row="1"/>
+        <Button Content="Roll" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="2" Command="{Binding Roll}"/>
+        <Button Content="{Binding RelativeSource={RelativeSource Self}, Path=CommandParameter}" VerticalAlignment="Center" Grid.Row="0" Command="{Binding SetMax}" CommandParameter="6"/>
+        <Button Content="{Binding RelativeSource={RelativeSource Self}, Path=CommandParameter}" VerticalAlignment="Center" HorizontalAlignment="Right" Command="{Binding SetMax}" CommandParameter="10"/>
+
+    </Grid>
+</Page>
